@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/accelerometer_graph"
+    android:keepScreenOn="true" >
+    
+   
+      <com.gingerio.activitydetect.AccDeviceView
+         android:id="@+id/shimmerGraph"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:layout_alignParentRight="true"
+         
+         />
+            
+        <RelativeLayout
+        android:id="@+id/shimmer_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" 
+        android:layout_alignParentLeft="true" 
+              
+       >
+       
+                 
+          <TextView
+            android:id="@+id/accValuesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="0dp"
+            />
+          
+                    
+           <LinearLayout
+            android:id="@+id/shimmerMenuChild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp" 
+            android:layout_centerInParent="true"       
+            android:paddingBottom="0dp"
+            > 
+     
+      <Button
+        android:id="@+id/startSensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        />
+      
+      <Button
+        android:id="@+id/stopSensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+       />
+      
+      
+  </LinearLayout>
+        
+           <TextView
+            android:id="@+id/accResultsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="0dp"
+            android:layout_below="@id/shimmerMenuChild" 
+           
+            />
+
+</RelativeLayout>  
+</RelativeLayout>
