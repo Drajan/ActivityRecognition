@@ -26,7 +26,7 @@
             android:id="@+id/accValuesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
+            android:layout_marginTop="5dip"
             android:layout_alignParentLeft="true"
             android:paddingBottom="0dp"
             android:text=""
@@ -67,7 +67,7 @@
         android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:text="Detect"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:layout_weight="1"
@@ -85,6 +85,19 @@
          android:text="Read Me!"
          android:textColor="@android:color/black"
          android:textStyle="bold" />
+     
+     <TextView
+            android:id="@+id/activityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/infoButton"
+            android:paddingBottom="0dp"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="Activity Detected: "
+            />
 
       </RelativeLayout>
 </RelativeLayout>

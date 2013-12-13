@@ -16,6 +16,7 @@ import org.opencv.android.OpenCVLoader;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -34,11 +35,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.BufferType;
+import android.widget.Toast;
 
 import com.google.common.primitives.Floats;
-import com.gingerio.activitydetect.R;
+
 
 public class MainActivity extends Activity implements OnClickListener, DialogInterface.OnClickListener{
 	private static final String TAG = "GingerIO::Activity";
@@ -56,7 +57,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
     long timeStamp;
     List<Long> time;
     private AccDeviceView graphView;
-    long totalTime = 2000; // total amount of data collection time in milliseconds. The accelerometer stops sensing after this time has elapsed.
+    long totalTime = 5000; // total amount of data collection time in milliseconds. The accelerometer stops sensing after this time has elapsed.
     AlertDialog.Builder alertDialogBuilder;
 	LayoutInflater li;
 	EditText userInput;
@@ -64,6 +65,8 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 	View promptsView;
 	float label;
 	DetectActivity act;
+	TextView resultText;
+	Toast t;
 	
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -72,6 +75,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
                 case LoaderCallbackInterface.SUCCESS:
                 {
                     Log.i(TAG, "OpenCV loaded successfully");
+                 // initialize the activity detection class.
                     act = new DetectActivity();
                 } break;
                 default:
@@ -105,6 +109,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
         test=(Button)findViewById(R.id.testButton);
         test.setOnClickListener(this);
         valuesText = (TextView) findViewById(R.id.accValuesText);
+        resultText = (TextView) findViewById(R.id.activityText);
         graphView = (AccDeviceView) findViewById(R.id.accelGraph);
         resetAxisText(); 
         //-----------------------------------------------------------------------------------------------
@@ -121,8 +126,6 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 		alertDialogBuilder.setView(promptsView);
 		alertDialog = alertDialogBuilder.create();
 		//------------------------------------------------------------------------------------------------
-		// initialize the activity detection class.
-		
 	}
 
 	@Override
@@ -133,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 	}
 	
 //------------------------------------------------------------------------------------------------------
-	// Response to button clicks by the user
+	// Response to button clicks by the user.
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -141,12 +144,18 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 			startRecording();
 			mTimer.start();
 		}else if(v == info){
-			
+			Intent i = new Intent(this, Instructions.class);
+			startActivity(i);
 		}else if(v == train){
 			alertDialogBuilder.setCancelable(false);
-			alertDialog.show();			
+			alertDialog.show();	
 		}else if(v == test){
-			
+			if(accX!=null && accY!=null && accZ!=null)
+				startDetecting();
+			else{
+				t = Toast.makeText(this, "No data to be process", Toast.LENGTH_SHORT);
+				t.show();
+			}
 		}
 	}
 //------------------------------------------------------------------------------------------------------
@@ -205,18 +214,25 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 		
 	}
 //------------------------------------------------------------------------------------------------------------------
-	public void startTraining(){
+	// Call the method defined in DetectActivity and pass the acquired sensor data.
+	public void startDetecting(){
 		float[] x = Floats.toArray(accX);
 		float[] y = Floats.toArray(accY);
 		float[] z = Floats.toArray(accZ);
 		float[] mag = Floats.toArray(accData);
-		
-		act.train(x, y, z, mag, label);
+		 
+		float actdetected = act.detect(x, y, z, mag, label);
+		if(actdetected == 0)
+			resultText.setText("Activity Detected: Sitting");
+		else if(actdetected == 1)
+			resultText.setText("Activity Detected: Jogging");
+		else
+			resultText.setText("Unknown Activity!");
 		Toast toast1 = Toast.makeText(this, "Done!", Toast.LENGTH_SHORT);
 		toast1.show();
 	}
 //-------------------------------------------------------------------------------------------------------------------
-	// Update the UI with the x, y and z axis instantaneous acceleration values
+	// Update the UI with the x, y and z axis instantaneous acceleration values.
 	public void updateText(){
 		DecimalFormat twoDForm = new DecimalFormat("#.###");
 		SpannableString text = new SpannableString("X-axis:    " +twoDForm.format(x)+ " m/s\u00B2  \n\nY-axis:    "+twoDForm.format(y)+ " m/s\u00B2 \n\nZ-axis:    "+twoDForm.format(z)+ " m/s\u00B2");
@@ -229,7 +245,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 		valuesText.setText(text, BufferType.SPANNABLE);
 	}
 //-------------------------------------------------------------------------------------------------------------------
-	// Reset axis text in the UI
+	// Reset axis text in the UI.
 	public void resetAxisText(){
 		 DecimalFormat twoDForm = new DecimalFormat("#.###");
 			SpannableString text = new SpannableString("X-axis:    " +twoDForm.format(x)+ " m/s\u00B2  \n\nY-axis:    "+twoDForm.format(y)+ " m/s\u00B2 \n\nZ-axis:    "+twoDForm.format(z)+ " m/s\u00B2");
@@ -241,15 +257,16 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 			
 	 }
 //-------------------------------------------------------------------------------------------------------------------
-	// Dialog for user to enter activity labels
+	// Dialog for user to enter activity labels.
 	 @Override
 		public void onClick(DialogInterface dialog, int which) {
 			// TODO Auto-generated method stub
 			
 				switch(which){
 				case DialogInterface.BUTTON_POSITIVE:
+					if(!userInput.getText().toString().trim().equals(""))
 					label = Float.parseFloat(userInput.getText().toString());
-					startTraining();
+					// call a method in DetectActivity to use the generated raw accelerometer signal in the training data matirx
 					break;
 				
 				case DialogInterface.BUTTON_NEGATIVE:

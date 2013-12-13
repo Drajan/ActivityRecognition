@@ -56,13 +56,16 @@ containing a value of this type.
         public static final int accel_menu=0x7f04000d;
         public static final int accelerometer_graph=0x7f040003;
         public static final int accelerometer_ui=0x7f04000b;
-        public static final int action_settings=0x7f040015;
+        public static final int action_settings=0x7f040018;
+        public static final int activityText=0x7f040012;
         public static final int any=0x7f040000;
         public static final int back=0x7f040001;
-        public static final int editTextDialogUserInput=0x7f040014;
+        public static final int done=0x7f040017;
+        public static final int editTextDialogUserInput=0x7f040015;
         public static final int front=0x7f040002;
         public static final int infoButton=0x7f040011;
-        public static final int layout_root=0x7f040012;
+        public static final int instText=0x7f040016;
+        public static final int layout_root=0x7f040013;
         public static final int menuButtons=0x7f04000e;
         public static final int shimmerGraph=0x7f040004;
         public static final int shimmerMenuChild=0x7f040007;
@@ -70,13 +73,14 @@ containing a value of this type.
         public static final int startSensor=0x7f040008;
         public static final int stopSensor=0x7f040009;
         public static final int testButton=0x7f040010;
-        public static final int textView1=0x7f040013;
+        public static final int textView1=0x7f040014;
         public static final int trainButton=0x7f04000f;
     }
     public static final class layout {
         public static final int accel_device=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int prompts=0x7f030002;
+        public static final int readme=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -85,6 +89,7 @@ containing a value of this type.
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
+        public static final int inst=0x7f060003;
     }
     public static final class style {
         /** 
