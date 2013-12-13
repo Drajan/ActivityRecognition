@@ -153,7 +153,7 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 			if(accX!=null && accY!=null && accZ!=null)
 				startDetecting();
 			else{
-				t = Toast.makeText(this, "No data to be process", Toast.LENGTH_SHORT);
+				t = Toast.makeText(this, "No data to be processed", Toast.LENGTH_SHORT);
 				t.show();
 			}
 		}
