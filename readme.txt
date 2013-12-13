@@ -11,7 +11,7 @@ The activities chosen are sitting and jogging.
 
 How the app works:
 
-1. Place the phone in the right-side waist pocket on your leg.
+1. Place the phone in the right pant pocket.
 2. Tap the 'Start' button to stream accelerometer data.
 3. Do a jogging or sitting activity for 5 seconds.
 4. Tap 'Detect' to see if the device got it right!
