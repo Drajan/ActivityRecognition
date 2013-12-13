@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="inst">
-     &#8226; Place phone in right pocket on your leg. \n 
+     &#8226; Place phone in right pant pocket. \n 
     &#8226; Tap \'Start\' to stream accelerometer data. \n
     &#8226; Do a jogging or sitting activity for 5 seconds. \n 
     &#8226; Tap \'Detect\' to see if the device got it right!
