@@ -282,7 +282,6 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 	// Android activity life cycle managing methods  
 	@Override
 	    protected void onStop() {
-	        mSensorManager.unregisterListener(accelerationListener);
 	        super.onStop();
 	    }
     
@@ -293,7 +292,6 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 	    }
 	    public void onDestroy() {
 	        super.onDestroy();
-	        mSensorManager.unregisterListener(accelerationListener);
 	      }
 //----------------------------------------------------------------------------------------------------------------------
 	 @Override
